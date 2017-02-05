@@ -1,0 +1,53 @@
+{
+	"id": "e90cb968-827a-b453-3d06-3e364911d5cb",
+	"name": "CSCI 3800 Assignment 1",
+	"description": "",
+	"order": [
+		"8e4c0af8-ef50-9758-fb73-d785620fc195",
+		"224fc0f1-3ea8-7784-f9fe-62fe3c34447f"
+	],
+	"folders": [],
+	"timestamp": 1486271664236,
+	"owner": 0,
+	"public": false,
+	"requests": [
+		{
+			"id": "224fc0f1-3ea8-7784-f9fe-62fe3c34447f",
+			"headers": "",
+			"url": "https://www.googleapis.com/books/v1/volumes/{{id}}",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "e90cb968-827a-b453-3d06-3e364911d5cb",
+			"data": null,
+			"dataMode": "params",
+			"name": "Chain Request",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1486276720877,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		},
+		{
+			"id": "8e4c0af8-ef50-9758-fb73-d785620fc195",
+			"headers": "",
+			"url": "https://www.googleapis.com/books/v1/volumes?q={{book_title}}",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"tests": "var jsonData = JSON.parse(responseBody);\n\nvar turingTest = true;\nfor(var i = 0; i < jsonData.items.length; i++){\n    if(!(jsonData.items[i].volumeInfo.title.includes(\"Turing\")||jsonData.items[i].volumeInfo.title.includes(\"turing\"))){\n        turingTest = false;\n    }\n}\ntests[\"All titles contain Turing\"] = turingTest;\n\ntests[\"Status code is 200\"] = responseCode.code === 200;\n\n\n\npostman.setEnvironmentVariable(\"id\", jsonData.items[0].id);",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1486277621575,
+			"name": "REST Request (Part 1)",
+			"description": "",
+			"collectionId": "e90cb968-827a-b453-3d06-3e364911d5cb",
+			"responses": []
+		}
+	]
+}
